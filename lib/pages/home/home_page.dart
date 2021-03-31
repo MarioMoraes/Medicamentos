@@ -1,3 +1,4 @@
+import 'package:app_bluestorm/pages/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,7 +9,7 @@ class HomePage extends StatelessWidget {
         title: Text('Medicamentos'),
         centerTitle: true,
       ),
-      body: ListView(),
+      body: LoginScreen(),
     );
   }
 }

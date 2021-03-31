@@ -1,6 +1,4 @@
-import 'package:app_timao/manager/user_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CustomDrawer extends StatefulWidget {
   @override
@@ -13,9 +11,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      elevation: 5,
-      child: Consumer<UserManager>(builder: (_, userManager, __) {
-        return Column(
+        elevation: 5,
+        child: Column(
           children: <Widget>[
             SizedBox(
               height: 10,
@@ -24,19 +21,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
               child: Container(
                   height: 60,
                   width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    "assets/images/icone.png",
-                    height: 60,
-                    width: 60,
-                  )),
+                  child: Text('')),
               decoration: BoxDecoration(
                 color: Colors.transparent,
               ),
             ),
-            Text(userManager.logged ? userManager.user.email : '',
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                )),
             SizedBox(
               height: 40,
             ),
@@ -100,14 +89,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
               height: 45,
             ),
             InkWell(
-              onTap: () {
-                if (userManager.logged)
-                  userManager.logOut();
-                else
-                  Navigator.pushNamed(context, '/login');
-              },
+              onTap: () {},
               child: Text(
-                userManager.logged ? 'Logout' : 'Login',
+                'Logout',
                 style: TextStyle(
                   fontFamily: 'Avenir',
                   fontSize: 20,
@@ -140,8 +124,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
               ),
             ))
           ],
-        );
-      }),
-    );
+        ));
   }
 }
