@@ -1,14 +1,16 @@
 import 'package:app_bluestorm/model/items.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class Medications extends GetxController {
   AuthService authService = AuthService();
+  Dio dio = Dio();
 
   @override
   void onReady() {
     super.onReady();
-    authService.getAllMedications();
+    getAllMedications();
   }
 
   Items items;
@@ -24,4 +26,25 @@ class Medications extends GetxController {
         page: json["page"],
         total: json["total"],
       );
+
+  Future<void> getAllMedications() async {
+    try {
+      var tokenAccess = authService.token;
+      print(tokenAccess);
+
+      dio.options.headers["Authorization"] = "Bearer $tokenAccess";
+
+      final response = await dio.get(
+          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
+
+      print(response.data.toString());
+
+      listMedications =
+          (response.data as List).map((e) => Medications.fromJson(e)).toList();
+
+      update();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+  }
 }

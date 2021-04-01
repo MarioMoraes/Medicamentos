@@ -32,11 +32,6 @@ class LoginScreen extends StatelessWidget {
                   padding: EdgeInsets.all(16),
                   shrinkWrap: true,
                   children: <Widget>[
-                    Image.asset(
-                      'assets/images/icone.png',
-                      height: 60,
-                      width: 60,
-                    ),
                     SizedBox(height: 10),
                     TextFormField(
                         onSaved: (name) => _.username = name,

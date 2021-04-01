@@ -13,11 +13,13 @@ class HomePage extends StatelessWidget {
         body: GetBuilder<Medications>(
           init: Medications(),
           builder: (controller) {
-            return ListView.builder(itemBuilder: (_, index) {
-              return ListTile(
-                title: Text(controller.items.drugName),
-              );
-            });
+            return ListView.builder(
+                itemCount: controller.listMedications.length,
+                itemBuilder: (_, index) {
+                  return ListTile(
+                    title: Text(controller.listMedications[index]),
+                  );
+                });
           },
         ));
   }

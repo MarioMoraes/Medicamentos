@@ -1,30 +1,25 @@
 import 'package:app_bluestorm/model/user.dart';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 
-class AuthService {
+class AuthService extends GetxController {
+  String token;
   String url = 'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1';
   Dio dio = Dio();
 
   Future<void> getAuth({User user, Function onSuccess, Function onFail}) async {
     try {
-      final Response response = await dio.post(
+      dynamic response = await dio.post(
         '$url/login',
         data: user.toMap(),
       );
-      print(response.statusMessage);
+
+      token = response.data['token'];
+      update();
 
       onSuccess();
     } on DioError catch (e) {
       onFail(e.message);
-    }
-  }
-
-  Future<void> getAllMedications() async {
-    try {
-      Response response = await dio.get('$url/medications');
-      return response.data;
-    } on DioError catch (e) {
-      print(e.message);
     }
   }
 }
