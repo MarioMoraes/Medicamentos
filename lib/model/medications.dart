@@ -2,6 +2,7 @@ import 'package:app_bluestorm/model/items.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class Medications extends GetxController {
   AuthService authService = AuthService();
@@ -29,10 +30,12 @@ class Medications extends GetxController {
 
   Future<void> getAllMedications() async {
     try {
-      var tokenAccess = authService.token;
-      print(tokenAccess);
+      GetStorage box = GetStorage();
+      var tokenAccess = await box.read('token');
 
       dio.options.headers["Authorization"] = "Bearer $tokenAccess";
+
+      print(tokenAccess);
 
       final response = await dio.get(
           'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
