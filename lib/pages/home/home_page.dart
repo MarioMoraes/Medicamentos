@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
           builder: (controller) {
             return ListView.builder(itemBuilder: (_, index) {
               return ListTile(
-                title: Text(controller.total.toString()),
+                title: Text(controller.items.drugName),
               );
             });
           },

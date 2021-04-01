@@ -7,11 +7,12 @@ class AuthService {
 
   Future<void> getAuth({User user, Function onSuccess, Function onFail}) async {
     try {
-      Response response = await dio.post(
+      final Response response = await dio.post(
         '$url/login',
         data: user.toMap(),
       );
       print(response.statusMessage);
+
       onSuccess();
     } on DioError catch (e) {
       onFail(e.message);
@@ -21,7 +22,7 @@ class AuthService {
   Future<void> getAllMedications() async {
     try {
       Response response = await dio.get('$url/medications');
-      print(response.statusMessage);
+      return response.data;
     } on DioError catch (e) {
       print(e.message);
     }
