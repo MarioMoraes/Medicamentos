@@ -1,5 +1,6 @@
 import 'package:app_bluestorm/pages/login/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +14,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+        initialRoute: '/login',
         debugShowCheckedModeBanner: false,
         title: 'Medicamentos',
         theme: ThemeData(
