@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
           builder: (controller) {
             return ListView.builder(itemBuilder: (_, index) {
               return ListTile(
-                title: Text(controller.items.toString()),
+                title: Text(controller.total.toString()),
               );
             });
           },
