@@ -1,23 +1,12 @@
-import 'dart:async';
-
-enum AuthFlowStatus { login, signUp, verification, session }
-
-class AuthState {
-  final AuthFlowStatus authFlowStatus;
-
-  AuthState({this.authFlowStatus});
-}
+import 'package:dio/dio.dart';
 
 class AuthService {
-  final authStateController = StreamController<AuthState>();
+  String url = '';
+  Dio dio;
 
-  void showSignUp() {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.signUp);
-    authStateController.add(state);
-  }
-
-  void showLogin() {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.login);
-    authStateController.add(state);
+  Future<void> getAuth() async {
+    Response response = await dio.post('$url/login',
+        data: {'username': 'johndoe', 'password': 'password'});
+    if (response.statusCode == 200) print('Logado!!!!');
   }
 }

@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 TextFormField(
-                    onSaved: (value) => user.userName = value,
+                    onSaved: (value) => user.username = value,
                     decoration: InputDecoration(hintText: 'Usuário'),
                     onTap: () {},
                     validator: (user) {
