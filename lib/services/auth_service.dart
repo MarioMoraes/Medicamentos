@@ -17,4 +17,13 @@ class AuthService {
       onFail(e.message);
     }
   }
+
+  Future<void> getAllMedications() async {
+    try {
+      Response response = await dio.get('$url/medications');
+      print(response.statusMessage);
+    } on DioError catch (e) {
+      print(e.message);
+    }
+  }
 }

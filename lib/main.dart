@@ -1,3 +1,4 @@
+import 'package:app_bluestorm/pages/home/home_page.dart';
 import 'package:app_bluestorm/pages/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -15,16 +16,20 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-        initialRoute: '/login',
-        debugShowCheckedModeBanner: false,
-        title: 'Medicamentos',
-        theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 100, 181, 246),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 100, 181, 246),
-          accentColor: const Color.fromARGB(255, 13, 71, 161),
-          fontFamily: 'Roboto',
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: LoginScreen());
+      debugShowCheckedModeBanner: false,
+      title: 'Medicamentos',
+      theme: ThemeData(
+        primaryColor: const Color.fromARGB(255, 100, 181, 246),
+        scaffoldBackgroundColor: const Color.fromARGB(255, 100, 181, 246),
+        accentColor: const Color.fromARGB(255, 13, 71, 161),
+        fontFamily: 'Roboto',
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      initialRoute: '/login',
+      getPages: [
+        GetPage(name: '/', page: () => HomePage()),
+        GetPage(name: '/login', page: () => LoginScreen()),
+      ],
+    );
   }
 }

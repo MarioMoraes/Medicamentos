@@ -1,7 +1,6 @@
 import 'package:app_bluestorm/helpers/validators.dart';
 import 'package:app_bluestorm/model/user.dart';
 import 'package:app_bluestorm/pages/drawer/custom_drawer.dart';
-import 'package:app_bluestorm/pages/home/home_page.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -72,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                               auth.getAuth(
                                 user: _,
                                 onSuccess: () {
-                                  Get.to(HomePage());
+                                  Get.offNamed('/');
                                 },
                                 onFail: (e) {
                                   scaffoldState.currentState
