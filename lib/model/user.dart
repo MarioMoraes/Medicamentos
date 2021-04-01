@@ -1,16 +1,18 @@
-class User {
-  String username;
-  String password;
+import 'package:get/get.dart';
+
+class User extends GetxController {
+  String username = "";
+  String password = "";
 
   User({this.username, this.password});
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        username: json["greeting"],
+        username: json["username"],
         password: json["password"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
         "username": username,
-        "passowrd": password,
+        "password": password,
       };
 }
