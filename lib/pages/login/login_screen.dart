@@ -1,6 +1,7 @@
 import 'package:app_bluestorm/helpers/validators.dart';
 import 'package:app_bluestorm/model/user.dart';
 import 'package:app_bluestorm/pages/drawer/custom_drawer.dart';
+import 'package:app_bluestorm/pages/home/home_page.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,8 @@ import 'package:get/get.dart';
 class LoginScreen extends StatelessWidget {
   final GlobalKey<FormState> formState = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
+
+  final AuthService auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +69,20 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () async {
                             if (formState.currentState.validate()) {
                               formState.currentState.save();
-                              AuthService auth = AuthService();
-                              await auth.getAuth(_);
+                              auth.getAuth(
+                                user: _,
+                                onSuccess: () {
+                                  Get.to(HomePage());
+                                },
+                                onFail: (e) {
+                                  scaffoldState.currentState
+                                      .showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Usuário/Senha Inválidos. Tente Novamente...'),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                },
+                              );
                             }
                           },
                           style: ButtonStyle(

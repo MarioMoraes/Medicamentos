@@ -5,11 +5,16 @@ class AuthService {
   String url = 'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1';
   Dio dio = Dio();
 
-  Future<void> getAuth(User user) async {
-    Response response = await dio.post(
-      '$url/login',
-      data: user.toMap(),
-    );
-    if (response.statusCode == 200) print('Logado!!!!');
+  Future<void> getAuth({User user, Function onSuccess, Function onFail}) async {
+    try {
+      Response response = await dio.post(
+        '$url/login',
+        data: user.toMap(),
+      );
+      print(response.statusMessage);
+      onSuccess();
+    } on DioError catch (e) {
+      onFail(e.message);
+    }
   }
 }
