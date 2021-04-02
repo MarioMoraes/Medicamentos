@@ -30,9 +30,6 @@ class Medications extends GetxController {
 
   Future<void> getAllMedications() async {
     try {
-      GetStorage box = GetStorage();
-      var tokenAccess = await box.read('token');
-
       dio.options.headers["Authorization"] = "Bearer $tokenAccess";
 
       print(tokenAccess);
