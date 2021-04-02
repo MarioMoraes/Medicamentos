@@ -1,5 +1,4 @@
 import 'package:app_bluestorm/helpers/singleton.dart';
-import 'package:app_bluestorm/model/medications.dart';
 import 'package:app_bluestorm/model/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -26,10 +25,10 @@ class AuthService extends GetxController {
       dio.options.headers['content-Type'] = 'application/json';
       dio.options.headers["Authorization"] = "Bearer $token";
 
-      String query = 'Eritromicina';
+      String query = 'Erit';
 
       response = await dio.get(
-          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications?query=$query&page=1&limit=30');
+          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications?query=$query&page=1&limit=20');
       print(response.data);
 
       onSuccess();

@@ -5,6 +5,10 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
 class Medications extends GetxController {
+  String query = "";
+  int pg = 1;
+  int limit = 20;
+
   AuthService authService = AuthService();
   Dio dio = Dio();
 
@@ -36,7 +40,7 @@ class Medications extends GetxController {
       dio.options.headers["Authorization"] = "Bearer $token";
 
       final response = await dio.get(
-          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
+          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications?query=$query&page=$page&limit=$limit');
       print(response.data);
 
       listMedications =
