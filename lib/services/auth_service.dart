@@ -16,7 +16,7 @@ class AuthService extends GetxController {
       );
 
       Map<String, dynamic> map = response.data;
-      var token = map.values;
+      var token = map.values.obs;
 
       onSuccess();
     } on DioError catch (e) {
