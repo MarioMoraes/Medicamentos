@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
+  final String token;
+
+  HomePage({this.token});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,12 +1,13 @@
+import 'package:app_bluestorm/helpers/singleton.dart';
 import 'package:app_bluestorm/model/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class AuthService extends GetxController {
-  String url = 'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1';
-
-  Dio dio = Dio();
+  String token = "";
+  final Dio dio = Dio();
+  final String url =
+      'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1';
 
   Future<void> getAuth({User user, Function onSuccess, Function onFail}) async {
     try {
@@ -16,11 +17,23 @@ class AuthService extends GetxController {
       );
 
       Map<String, dynamic> map = response.data;
-      var token = map.values.obs;
+      dynamic tk = map.values;
+      token = tk.toString();
+
+      int tam = token.length;
+      String x = token.substring(1, tam - 1);
+      token = x;
+
+      saveInstance();
 
       onSuccess();
     } on DioError catch (e) {
       onFail(e.message);
     }
+  }
+
+  void saveInstance() {
+    var s1 = Singleton.instance;
+    s1.tokenData = token;
   }
 }

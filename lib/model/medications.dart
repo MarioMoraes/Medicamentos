@@ -1,8 +1,8 @@
+import 'package:app_bluestorm/helpers/singleton.dart';
 import 'package:app_bluestorm/model/items.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class Medications extends GetxController {
   AuthService authService = AuthService();
@@ -30,10 +30,11 @@ class Medications extends GetxController {
 
   Future<void> getAllMedications() async {
     try {
-      dio.options.headers["Authorization"] = "Bearer $tokenAccess";
+      String token = Singleton.instance.tokenData;
 
-      print(tokenAccess);
+      print(token);
 
+      dio.options.headers["Authorization"] = token;
       final response = await dio.get(
           'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
 
