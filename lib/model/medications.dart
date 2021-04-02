@@ -32,18 +32,15 @@ class Medications extends GetxController {
     try {
       String token = Singleton.instance.tokenData;
 
-      print(token);
+      dio.options.headers['content-Type'] = 'application/json';
+      dio.options.headers["Authorization"] = "Bearer $token";
 
-      dio.options.headers["Authorization"] = token;
       final response = await dio.get(
           'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
-
-      print(response.data.toString());
+      print(response.data);
 
       listMedications =
           (response.data as List).map((e) => Medications.fromJson(e)).toList();
-
-      update();
     } on DioError catch (e) {
       print(e.message);
     }

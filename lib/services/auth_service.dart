@@ -1,4 +1,5 @@
 import 'package:app_bluestorm/helpers/singleton.dart';
+import 'package:app_bluestorm/model/medications.dart';
 import 'package:app_bluestorm/model/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -16,15 +17,20 @@ class AuthService extends GetxController {
         data: user.toMap(),
       );
 
+      // Save Token
       Map<String, dynamic> map = response.data;
-      dynamic tk = map.values;
-      token = tk.toString();
-
-      int tam = token.length;
-      String x = token.substring(1, tam - 1);
-      token = x;
-
+      token = map.values.first;
       saveInstance();
+
+      /////
+      dio.options.headers['content-Type'] = 'application/json';
+      dio.options.headers["Authorization"] = "Bearer $token";
+
+      String query = 'Eritromicina';
+
+      response = await dio.get(
+          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications?query=$query&page=1&limit=30');
+      print(response.data);
 
       onSuccess();
     } on DioError catch (e) {
@@ -33,7 +39,7 @@ class AuthService extends GetxController {
   }
 
   void saveInstance() {
-    var s1 = Singleton.instance;
-    s1.tokenData = token;
+    var singleton = Singleton.instance;
+    singleton.tokenData = token;
   }
 }
