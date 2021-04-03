@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  final String token;
-
-  HomePage({this.token});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +17,8 @@ class HomePage extends StatelessWidget {
                 itemCount: controller.listMedications.length,
                 itemBuilder: (_, index) {
                   return ListTile(
-                    title: Text(controller.listMedications[index]),
+                    title:
+                        Text(controller.listMedications[index].items.drugName),
                   );
                 });
           },
