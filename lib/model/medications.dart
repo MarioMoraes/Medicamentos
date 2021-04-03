@@ -39,8 +39,14 @@ class Medications extends GetxController {
       dio.options.headers['content-Type'] = 'application/json';
       dio.options.headers["Authorization"] = "Bearer $token";
 
+      dio.options.queryParameters = {
+        'query': 'eritro',
+        'page': pg,
+        'limit': limit
+      };
+
       final response = await dio.get(
-          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications?query=$query&page=$page&limit=$limit');
+          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
       print(response.data);
 
       listMedications =

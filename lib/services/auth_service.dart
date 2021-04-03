@@ -25,10 +25,10 @@ class AuthService extends GetxController {
       dio.options.headers['content-Type'] = 'application/json';
       dio.options.headers["Authorization"] = "Bearer $token";
 
-      String query = 'Erit';
+      dio.options.queryParameters = {'query': '', 'page': 1, 'limit': 20};
 
       response = await dio.get(
-          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications?query=$query&page=1&limit=20');
+          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
       print(response.data);
 
       onSuccess();
