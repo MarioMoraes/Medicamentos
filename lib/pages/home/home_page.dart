@@ -17,8 +17,8 @@ class HomePage extends StatelessWidget {
                 itemCount: controller.listMedications.length,
                 itemBuilder: (_, index) {
                   return ListTile(
-                    title: Text(controller
-                        .listMedications[index].items[index].drugName),
+                    title: Text(controller.listMedications[index].items.first
+                        .toString()),
                   );
                 });
           },

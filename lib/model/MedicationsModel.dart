@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MedicationsModel {
   MedicationsModel({
     this.items,
@@ -9,12 +11,10 @@ class MedicationsModel {
   int page;
   int total;
 
-  factory MedicationsModel.fromJson(Map<String, dynamic> json) =>
-      MedicationsModel(
-        items: List<Item>.from(json["items"].map((x) => Item.fromMap(x))),
-        page: json["page"],
-        total: json["total"],
-      );
+  factory MedicationsModel.fromJson(String str) =>
+      MedicationsModel.fromMap(json.decode(str));
+
+  String toJson() => json.encode(toMap());
 
   factory MedicationsModel.fromMap(Map<String, dynamic> json) =>
       MedicationsModel(
@@ -28,6 +28,13 @@ class MedicationsModel {
         "page": page,
         "total": total,
       };
+
+  static List<MedicationsModel> fromJsonList(List list) {
+    if (list == null) return null;
+    return list
+        .map<MedicationsModel>((item) => MedicationsModel.fromMap(item))
+        .toList();
+  }
 }
 
 class Item {

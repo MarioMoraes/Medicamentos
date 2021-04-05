@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:app_bluestorm/helpers/singleton.dart';
+import 'package:app_bluestorm/model/MedicationsModel.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'MedicationsModel.dart';
 
 class Medications extends GetxController {
   String query = "";
@@ -12,7 +13,7 @@ class Medications extends GetxController {
   int limit = 20;
   String token;
 
-  var listMedications = [];
+  List<MedicationsModel> listMedications;
 
   AuthService authService = AuthService();
   Dio dio = Dio();
@@ -20,7 +21,7 @@ class Medications extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    getAllMedications();
+    listMedications = getAllMedications() as List<MedicationsModel>;
   }
 
   Future<void> getAllMedications() async {
@@ -36,9 +37,11 @@ class Medications extends GetxController {
           'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
       print(response.data);
 
-      listMedications = MedicationsModel.fromJson(response.data) as List;
+      var resultado = response.data;
 
-      print(listMedications);
+      listMedications =
+          MedicationsModel.fromJson(resultado) as List<MedicationsModel>;
+      print(resultado);
     } on DioError catch (e) {
       print(e.message);
     }
