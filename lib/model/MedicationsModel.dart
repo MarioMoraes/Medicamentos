@@ -1,5 +1,12 @@
 import 'dart:convert';
 
+List<MedicationsModel> medicationsFromJson(String str) =>
+    List<MedicationsModel>.from(
+        json.decode(str).map((x) => MedicationsModel.fromJson(x)));
+
+String medicationsToJson(List<MedicationsModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class MedicationsModel {
   MedicationsModel({
     this.items,
@@ -11,30 +18,18 @@ class MedicationsModel {
   int page;
   int total;
 
-  factory MedicationsModel.fromJson(String str) =>
-      MedicationsModel.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory MedicationsModel.fromMap(Map<String, dynamic> json) =>
+  factory MedicationsModel.fromJson(Map<String, dynamic> json) =>
       MedicationsModel(
-        items: List<Item>.from(json["items"].map((x) => Item.fromMap(x))),
+        items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
         page: json["page"],
         total: json["total"],
       );
 
-  Map<String, dynamic> toMap() => {
-        "items": List<dynamic>.from(items.map((x) => x.toMap())),
+  Map<String, dynamic> toJson() => {
+        "items": List<dynamic>.from(items.map((x) => x.toJson())),
         "page": page,
         "total": total,
       };
-
-  static List<MedicationsModel> fromJsonList(List list) {
-    if (list == null) return null;
-    return list
-        .map<MedicationsModel>((item) => MedicationsModel.fromMap(item))
-        .toList();
-  }
 }
 
 class Item {
@@ -56,26 +51,7 @@ class Item {
   String activeIngredient;
   String referenceStandard;
 
-  Item copyWith({
-    String medicationId,
-    String form,
-    String strength,
-    String referenceDrug,
-    String drugName,
-    String activeIngredient,
-    String referenceStandard,
-  }) =>
-      Item(
-        medicationId: medicationId ?? this.medicationId,
-        form: form ?? this.form,
-        strength: strength ?? this.strength,
-        referenceDrug: referenceDrug ?? this.referenceDrug,
-        drugName: drugName ?? this.drugName,
-        activeIngredient: activeIngredient ?? this.activeIngredient,
-        referenceStandard: referenceStandard ?? this.referenceStandard,
-      );
-
-  factory Item.fromMap(Map<String, dynamic> json) => Item(
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
         medicationId: json["medication_id"],
         form: json["form"],
         strength: json["strength"],
@@ -85,7 +61,7 @@ class Item {
         referenceStandard: json["reference_standard"],
       );
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "medication_id": medicationId,
         "form": form,
         "strength": strength,

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
+  final Medications medications = Get.put(Medications());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,18 +12,17 @@ class HomePage extends StatelessWidget {
           title: Text('Medicamentos'),
           centerTitle: true,
         ),
-        body: GetBuilder<Medications>(
-          init: Medications(),
-          builder: (controller) {
+        body: Obx(() {
+          if (medications.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          } else
             return ListView.builder(
-                itemCount: controller.listMedications.length,
+                itemCount: medications.listMedications.length,
                 itemBuilder: (_, index) {
                   return ListTile(
-                    title: Text(controller.listMedications[index].items.first
-                        .toString()),
+                    title: Text(medications.listMedications[index].drugName),
                   );
                 });
-          },
-        ));
+        }));
   }
 }

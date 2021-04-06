@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:app_bluestorm/helpers/singleton.dart';
 import 'package:app_bluestorm/model/MedicationsModel.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
@@ -9,23 +7,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Medications extends GetxController {
   String query = "";
+
   int pg = 1;
   int limit = 20;
   String token;
 
-  List<MedicationsModel> listMedications;
+  var listMedications = RxList<Item>([]);
+  var isLoading = true.obs;
 
   AuthService authService = AuthService();
   Dio dio = Dio();
 
   @override
-  void onReady() {
-    super.onReady();
-    listMedications = getAllMedications() as List<MedicationsModel>;
+  void onInit() {
+    getAllMedications();
+    super.onInit();
   }
 
   Future<void> getAllMedications() async {
     try {
+      isLoading(true);
       token = Singleton.instance.tokenData;
 
       dio.options.headers['content-Type'] = 'application/json';
@@ -35,16 +36,14 @@ class Medications extends GetxController {
 
       final response = await dio.get(
           'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
-      print(response.data);
 
-      var resultado = response.data;
-
-      listMedications =
-          MedicationsModel.fromJson(resultado) as List<MedicationsModel>;
-      print(resultado);
+      listMedications = (response.data['items'])
+          .map<Item>((item) => Item.fromJson(item))
+          .toList();
     } on DioError catch (e) {
       print(e.message);
     }
+    isLoading(false);
   }
 
   void getToken() async {
