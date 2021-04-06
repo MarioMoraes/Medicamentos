@@ -8,10 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Medications extends GetxController {
   String query = "";
 
-  int limit = 20;
+  int limit = 50;
   String token;
 
-  var listMedications = [];
+  var listMedications = [].obs;
   var isLoading = true.obs;
   RxInt pg = 1.obs;
 
@@ -39,7 +39,7 @@ class Medications extends GetxController {
 
       pg.value = response.data['page'];
 
-      listMedications = (response.data['items'])
+      listMedications.value = (response.data['items'])
           .map<Item>((item) => Item.fromJson(item))
           .toList();
     } on DioError catch (e) {
