@@ -13,6 +13,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthService auth = Get.put(AuthService());
+
     return Scaffold(
         key: scaffoldState,
         appBar: AppBar(
@@ -88,11 +90,13 @@ class LoginScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          child: Text('Entrar',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                              ))),
+                          child: (auth.isLoading.value)
+                              ? Center(child: CircularProgressIndicator())
+                              : Text('Entrar',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+                                  ))),
                     ),
                     SizedBox(height: 8),
                   ],

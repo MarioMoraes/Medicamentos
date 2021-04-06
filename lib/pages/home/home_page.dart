@@ -12,6 +12,12 @@ class HomePage extends StatelessWidget {
           title: Text('Medicamentos'),
           centerTitle: true,
         ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.skip_next),
+          onPressed: () {
+            medications.nextPage();
+          },
+        ),
         body: Obx(() {
           if (medications.isLoading.value) {
             return Center(child: CircularProgressIndicator());

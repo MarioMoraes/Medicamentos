@@ -8,12 +8,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Medications extends GetxController {
   String query = "";
 
-  int pg = 1;
   int limit = 20;
   String token;
 
-  var listMedications = RxList<Item>([]);
+  var listMedications = [];
   var isLoading = true.obs;
+  RxInt pg = 1.obs;
 
   AuthService authService = AuthService();
   Dio dio = Dio();
@@ -32,10 +32,12 @@ class Medications extends GetxController {
       dio.options.headers['content-Type'] = 'application/json';
       dio.options.headers["Authorization"] = "Bearer $token";
 
-      dio.options.queryParameters = {'page': pg, 'limit': limit};
+      dio.options.queryParameters = {'page': pg.value, 'limit': limit};
 
       final response = await dio.get(
           'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
+
+      pg.value = response.data['page'];
 
       listMedications = (response.data['items'])
           .map<Item>((item) => Item.fromJson(item))
@@ -44,6 +46,11 @@ class Medications extends GetxController {
       print(e.message);
     }
     isLoading(false);
+  }
+
+  void nextPage() {
+    pg.value = pg.value + 1;
+    getAllMedications();
   }
 
   void getToken() async {

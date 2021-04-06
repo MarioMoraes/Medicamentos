@@ -10,8 +10,11 @@ class AuthService extends GetxController {
   final String url =
       'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1';
 
+  var isLoading = false.obs;
+
   Future<void> getAuth({User user, Function onSuccess, Function onFail}) async {
     try {
+      isLoading(true);
       dynamic response = await dio.post(
         '$url/login',
         data: user.toMap(),
@@ -27,6 +30,7 @@ class AuthService extends GetxController {
     } on DioError catch (e) {
       onFail(e.message);
     }
+    isLoading(false);
   }
 
   void saveInstance() {
