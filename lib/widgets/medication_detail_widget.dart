@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MedicationDetailWidget extends StatelessWidget {
-  MedicationDetailWidget();
-
   @override
   Widget build(BuildContext context) {
     final detail = Get.parameters['detail'] as Item;
@@ -22,7 +20,7 @@ class MedicationDetailWidget extends StatelessWidget {
               Text(detail.medicationId),
               Text(detail.referenceDrug),
               Text(detail.strength),
-              Text(detail.activeIngredient)
+              Text(detail.activeIngredient),              
             ],
           ),
         ),
