@@ -13,7 +13,7 @@ class CardDetailWidget extends StatelessWidget {
       padding: EdgeInsets.all(8),
       child: InkWell(
         onTap: () {
-          Get.toNamed('/detail', arguments: detail);
+          Get.toNamed('/detail?detail=$detail.value');
         },
         child: Container(
           height: 100,

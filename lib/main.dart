@@ -1,3 +1,4 @@
+import 'package:app_bluestorm/model/MedicationsModel.dart';
 import 'package:app_bluestorm/pages/home/home_page.dart';
 import 'package:app_bluestorm/pages/login/login_screen.dart';
 import 'package:app_bluestorm/widgets/medication_detail_widget.dart';
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       getPages: [
         GetPage(name: '/', page: () => HomePage()),
         GetPage(name: '/login', page: () => LoginScreen()),
-        GetPage(name: '/detail', page: () => MedicationDetailWidget(null)),
+        GetPage(name: '/detail', page: () => MedicationDetailWidget()),
       ],
     );
   }

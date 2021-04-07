@@ -1,13 +1,14 @@
 import 'package:app_bluestorm/model/MedicationsModel.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MedicationDetailWidget extends StatelessWidget {
-  final Item detail;
-
-  MedicationDetailWidget(this.detail);
+  MedicationDetailWidget();
 
   @override
   Widget build(BuildContext context) {
+    final detail = Get.parameters['detail'] as Item;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Informações'),
