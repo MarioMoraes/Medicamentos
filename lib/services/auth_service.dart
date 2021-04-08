@@ -2,7 +2,6 @@ import 'package:app_bluestorm/helpers/singleton.dart';
 import 'package:app_bluestorm/model/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService extends GetxController {
   String token = "";
@@ -23,7 +22,6 @@ class AuthService extends GetxController {
       // Save Token
       Map<String, dynamic> map = response.data;
       token = map.values.first;
-
       saveInstance();
 
       onSuccess();
@@ -36,10 +34,5 @@ class AuthService extends GetxController {
   void saveInstance() {
     var singleton = Singleton.instance;
     singleton.tokenData = token;
-  }
-
-  void saveShared() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
   }
 }

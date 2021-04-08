@@ -25,10 +25,16 @@ class HomePage extends StatelessWidget {
           if (medications.isLoading.value) {
             return Center(child: CircularProgressIndicator());
           } else
-            return ListView.builder(
+            return ListView.separated(
                 itemCount: medications.listMedications.length,
                 itemBuilder: (_, index) {
                   return CardDetailWidget(medications.listMedications[index]);
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    color: Colors.transparent,
+                    height: 5,
+                  );
                 });
         }));
   }

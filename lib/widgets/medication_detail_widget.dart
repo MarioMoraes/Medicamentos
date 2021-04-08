@@ -1,4 +1,3 @@
-import 'package:app_bluestorm/helpers/favorites.dart';
 import 'package:app_bluestorm/model/MedicationsModel.dart';
 import 'package:flutter/material.dart';
 
@@ -26,10 +25,7 @@ class MedicationDetailWidget extends StatelessWidget {
               height: 10,
             ),
             ElevatedButton(
-                onPressed: () async {
-                  Favorites fav = Favorites();
-                  fav.addFavorite(item.medicationId);
-                },
+                onPressed: () async {},
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all(5),
                   backgroundColor: MaterialStateProperty.resolveWith<Color>(

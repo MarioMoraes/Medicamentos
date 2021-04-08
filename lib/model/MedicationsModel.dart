@@ -41,6 +41,7 @@ class Item {
     this.drugName,
     this.activeIngredient,
     this.referenceStandard,
+    this.favorite = false,
   });
 
   String medicationId;
@@ -50,6 +51,7 @@ class Item {
   String drugName;
   String activeIngredient;
   String referenceStandard;
+  bool favorite;
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
         medicationId: json["medication_id"],
@@ -59,6 +61,7 @@ class Item {
         drugName: json["drug_name"],
         activeIngredient: json["active_ingredient"],
         referenceStandard: json["reference_standard"],
+        favorite: false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +72,6 @@ class Item {
         "drug_name": drugName,
         "active_ingredient": activeIngredient,
         "reference_standard": referenceStandard,
+        "favorite": false,
       };
 }

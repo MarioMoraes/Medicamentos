@@ -8,6 +8,7 @@ class Items extends GetxController {
   String drugName;
   String activeIngredient;
   String referenceStandard;
+  bool favorite;
 
   Items({
     this.medicationId,
@@ -17,6 +18,7 @@ class Items extends GetxController {
     this.drugName,
     this.activeIngredient,
     this.referenceStandard,
+    this.favorite = false,
   });
 
   Items.fromMap(Map<String, dynamic> map) {
@@ -27,6 +29,7 @@ class Items extends GetxController {
     drugName = map['drugName'];
     activeIngredient = map['activeIngredient'];
     referenceStandard = map['referenceStandard'];
+    favorite = false;
   }
 
   Map<String, dynamic> toMap() {
