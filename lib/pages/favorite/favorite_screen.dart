@@ -4,23 +4,17 @@ import 'package:app_bluestorm/widgets/card_detail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatelessWidget {
+class FavoriteScreen extends StatelessWidget {
   final Medications medications = Get.put(Medications());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Medicamentos'),
+          title: Text('Favoritos'),
           centerTitle: true,
         ),
         drawer: CustomDrawer(),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.navigate_next),
-          onPressed: () {
-            medications.nextPage();
-          },
-        ),
         body: Obx(() {
           if (medications.isLoading.value) {
             return Center(child: CircularProgressIndicator());

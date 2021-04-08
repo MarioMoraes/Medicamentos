@@ -1,3 +1,4 @@
+import 'package:app_bluestorm/helpers/favorites.dart';
 import 'package:app_bluestorm/helpers/singleton.dart';
 import 'package:app_bluestorm/model/MedicationsModel.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
@@ -12,6 +13,8 @@ class Medications extends GetxController {
   String token;
 
   var listMedications = [].obs;
+  var listFavorites = [].obs;
+
   var isLoading = true.obs;
   RxInt pg = 1.obs;
 
@@ -20,7 +23,7 @@ class Medications extends GetxController {
 
   @override
   void onInit() {
-    getAllMedications();
+    getAllFavorites();
     super.onInit();
   }
 
@@ -42,6 +45,33 @@ class Medications extends GetxController {
       listMedications.value = (response.data['items'])
           .map<Item>((item) => Item.fromJson(item))
           .toList();
+    } on DioError catch (e) {
+      print(e.message);
+    }
+    isLoading(false);
+  }
+
+  Future<void> getAllFavorites() async {
+    Favorites favorite = Favorites();
+    Future<List<String>> items = favorite.getFavorites();
+
+    try {
+      isLoading(true);
+      token = Singleton.instance.tokenData;
+
+      dio.options.headers['content-Type'] = 'application/json';
+      dio.options.headers["Authorization"] = "Bearer $token";
+
+      dio.options.queryParameters = {'page': pg.value, 'limit': limit};
+
+      final response = await dio.get(
+          'https://djbnrrib9e.execute-api.us-east-2.amazonaws.com/v1/medications');
+
+      listMedications.value = (response.data['items'])
+          .map<Item>((item) => Item.fromJson(item))
+          .toList();
+
+      print('STOP');
     } on DioError catch (e) {
       print(e.message);
     }

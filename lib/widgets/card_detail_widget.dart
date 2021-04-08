@@ -1,6 +1,6 @@
 import 'package:app_bluestorm/model/MedicationsModel.dart';
+import 'package:app_bluestorm/widgets/medication_detail_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CardDetailWidget extends StatelessWidget {
   final Item detail;
@@ -13,7 +13,10 @@ class CardDetailWidget extends StatelessWidget {
       padding: EdgeInsets.all(8),
       child: InkWell(
         onTap: () {
-          Get.toNamed('/detail?detail=$detail.value');
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => MedicationDetailWidget(detail)));
         },
         child: Container(
           height: 100,
@@ -30,27 +33,34 @@ class CardDetailWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        detail.drugName,
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                      Flexible(
+                        child: Container(
+                          padding: new EdgeInsets.only(right: 6.0),
+                          child: Text(
+                            detail.drugName,
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: FlatButton(
-                            onPressed: () {},
-                            child: Icon(Icons.favorite_border)),
-                      )
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    detail.activeIngredient,
-                    style: TextStyle(color: Colors.black87, fontSize: 14),
+                Flexible(
+                  child: Container(
+                    padding: new EdgeInsets.only(right: 6.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        detail.activeIngredient,
+                        style: TextStyle(color: Colors.black87, fontSize: 14),
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
                   ),
                 ),
               ],

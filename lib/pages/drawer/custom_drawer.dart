@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomDrawer extends StatefulWidget {
   @override
@@ -21,7 +24,11 @@ class _CustomDrawerState extends State<CustomDrawer> {
               child: Container(
                   height: 60,
                   width: MediaQuery.of(context).size.width,
-                  child: Text('')),
+                  child: Image.asset(
+                    'assets/images/icone.png',
+                    height: 30,
+                    width: 30,
+                  )),
               decoration: BoxDecoration(
                 color: Colors.transparent,
               ),
@@ -34,13 +41,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 setState(() {
                   currentIndex = 3;
                 });
-                Navigator.of(context).pop();
+                Get.toNamed('/');
               },
               child: Text(
                 'Home',
                 style: TextStyle(
                   fontFamily: 'Avenir',
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,
@@ -50,40 +57,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
               height: 45,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed('/favorite');
+              },
               child: Text(
-                'Produtos',
+                'Favoritos',
                 style: TextStyle(
                   fontFamily: 'Avenir',
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,
               ),
-            ),
-            SizedBox(
-              height: 45,
-            ),
-            Text(
-              'Pedidos',
-              style: TextStyle(
-                fontFamily: 'Avenir',
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 45,
-            ),
-            Text(
-              'Lojas',
-              style: TextStyle(
-                fontFamily: 'Avenir',
-                fontSize: 20,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 45,
@@ -94,7 +79,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 'Logout',
                 style: TextStyle(
                   fontFamily: 'Avenir',
-                  fontSize: 20,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,
@@ -115,7 +100,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     'v1.0',
                     style: TextStyle(
                       fontFamily: 'Avenir',
-                      fontSize: 20,
+                      fontSize: 14,
                       color: Colors.white,
                     ),
                     textAlign: TextAlign.center,

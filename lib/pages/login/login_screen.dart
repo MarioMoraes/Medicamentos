@@ -1,6 +1,5 @@
 import 'package:app_bluestorm/helpers/validators.dart';
 import 'package:app_bluestorm/model/user.dart';
-import 'package:app_bluestorm/pages/drawer/custom_drawer.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,7 +20,6 @@ class LoginScreen extends StatelessWidget {
           title: Text('Login'),
           centerTitle: true,
         ),
-        drawer: CustomDrawer(),
         body: Center(
             child: Card(
           margin: EdgeInsets.symmetric(horizontal: 16),
@@ -61,42 +59,48 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: 40),
                     SizedBox(
                       height: 50,
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            if (formState.currentState.validate()) {
-                              formState.currentState.save();
-                              auth.getAuth(
-                                user: _,
-                                onSuccess: () {
-                                  Get.offNamed('/');
+                      child: Obx(
+                        () => ElevatedButton(
+                            onPressed: () async {
+                              if (formState.currentState.validate()) {
+                                formState.currentState.save();
+                                auth.getAuth(
+                                  user: _,
+                                  onSuccess: () {
+                                    Get.offNamed('/');
+                                  },
+                                  onFail: (e) {
+                                    scaffoldState.currentState
+                                        .showSnackBar(SnackBar(
+                                      content: Text(
+                                          'Usuário/Senha Inválidos. Tente Novamente...'),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  },
+                                );
+                              }
+                            },
+                            style: ButtonStyle(
+                              elevation: MaterialStateProperty.all(5),
+                              backgroundColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                                  return Theme.of(context).accentColor;
                                 },
-                                onFail: (e) {
-                                  scaffoldState.currentState
-                                      .showSnackBar(SnackBar(
-                                    content: Text(
-                                        'Usuário/Senha Inválidos. Tente Novamente...'),
-                                    backgroundColor: Colors.red,
-                                  ));
-                                },
-                              );
-                            }
-                          },
-                          style: ButtonStyle(
-                            elevation: MaterialStateProperty.all(5),
-                            backgroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                return Theme.of(context).accentColor;
-                              },
+                              ),
                             ),
-                          ),
-                          child: (auth.isLoading.value)
-                              ? Center(child: CircularProgressIndicator())
-                              : Text('Entrar',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.white,
-                                  ))),
+                            child: (auth.isLoading.value)
+                                ? CircularProgressIndicator(
+                                    valueColor:
+                                        new AlwaysStoppedAnimation<Color>(
+                                            Colors.white),
+                                  )
+                                : Text('Entrar',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                    ))),
+                      ),
                     ),
                     SizedBox(height: 8),
                   ],
