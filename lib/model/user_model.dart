@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
-class User extends GetxController {
+class UserModel extends GetxController {
   String username = "";
   String password = "";
 
-  User({this.username, this.password});
+  UserModel({this.username, this.password});
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         username: json["username"],
         password: json["password"],
       );

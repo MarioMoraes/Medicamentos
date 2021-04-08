@@ -1,5 +1,5 @@
 import 'package:app_bluestorm/helpers/validators.dart';
-import 'package:app_bluestorm/model/user.dart';
+import 'package:app_bluestorm/model/user_model.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,8 +23,8 @@ class LoginScreen extends StatelessWidget {
         body: Center(
             child: Card(
           margin: EdgeInsets.symmetric(horizontal: 16),
-          child: GetBuilder<User>(
-            init: User(),
+          child: GetBuilder<UserModel>(
+            init: UserModel(),
             builder: (_) {
               return Form(
                 key: formState,

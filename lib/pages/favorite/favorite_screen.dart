@@ -1,11 +1,11 @@
-import 'package:app_bluestorm/model/medications.dart';
+import 'package:app_bluestorm/controller/favorites_controller.dart';
 import 'package:app_bluestorm/pages/drawer/custom_drawer.dart';
-import 'package:app_bluestorm/widgets/card_detail_widget.dart';
+import 'package:app_bluestorm/widgets/list_detail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FavoriteScreen extends StatelessWidget {
-  final Medications medications = Get.put(Medications());
+  final FavoritesController favorites = Get.put(FavoritesController());
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +16,13 @@ class FavoriteScreen extends StatelessWidget {
         ),
         drawer: CustomDrawer(),
         body: Obx(() {
-          if (medications.isLoading.value) {
+          if (favorites.isLoading.value) {
             return Center(child: CircularProgressIndicator());
           } else
             return ListView.builder(
-                itemCount: medications.listMedications.length,
+                itemCount: favorites.listFavorites.length,
                 itemBuilder: (_, index) {
-                  return CardDetailWidget(medications.listMedications[index]);
+                  return ListDetailWidget(favorites.listMedications[index]);
                 });
         }));
   }

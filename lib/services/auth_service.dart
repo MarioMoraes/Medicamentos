@@ -1,5 +1,5 @@
 import 'package:app_bluestorm/helpers/singleton.dart';
-import 'package:app_bluestorm/model/user.dart';
+import 'package:app_bluestorm/model/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +11,8 @@ class AuthService extends GetxController {
 
   var isLoading = false.obs;
 
-  Future<void> getAuth({User user, Function onSuccess, Function onFail}) async {
+  Future<void> getAuth(
+      {UserModel user, Function onSuccess, Function onFail}) async {
     try {
       isLoading(true);
       dynamic response = await dio.post(

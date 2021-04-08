@@ -1,15 +1,20 @@
-import 'package:app_bluestorm/model/MedicationsModel.dart';
+import 'package:app_bluestorm/model/medications_model.dart';
 import 'package:app_bluestorm/widgets/medication_detail_widget.dart';
 import 'package:flutter/material.dart';
 
-class CardDetailWidget extends StatelessWidget {
+class ListDetailWidget extends StatelessWidget {
   final Item item;
 
-  CardDetailWidget(this.item);
+  ListDetailWidget(this.item);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      isThreeLine: true,
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => MedicationDetailWidget(item)));
+      },
       tileColor: Colors.white,
       title: Text(
         item.drugName,
@@ -25,11 +30,9 @@ class CardDetailWidget extends StatelessWidget {
         width: 40,
       ),
       trailing: IconButton(
-        icon: Icon(Icons.favorite_border, color: Colors.red),
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => MedicationDetailWidget(item)));
-        },
+        icon: Icon(item.favorite ? Icons.favorite : Icons.favorite_border,
+            color: Colors.red),
+        onPressed: () {},
       ),
     );
   }

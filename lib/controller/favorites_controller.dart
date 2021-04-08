@@ -1,10 +1,11 @@
+import 'package:app_bluestorm/helpers/favorites.dart';
 import 'package:app_bluestorm/helpers/singleton.dart';
-import 'package:app_bluestorm/model/MedicationsModel.dart';
+import 'package:app_bluestorm/model/medications_model.dart';
 import 'package:app_bluestorm/services/auth_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-class Medications extends GetxController {
+class FavoritesController extends GetxController {
   String query = "";
 
   int limit = 20;
@@ -21,11 +22,11 @@ class Medications extends GetxController {
 
   @override
   void onInit() {
-    getAllMedications();
+    getAllFavorites();
     super.onInit();
   }
 
-  Future<void> getAllMedications() async {
+  Future<void> getAllFavorites() async {
     try {
       isLoading(true);
       token = Singleton.instance.tokenData;
@@ -43,14 +44,30 @@ class Medications extends GetxController {
       listMedications.value = (response.data['items'])
           .map<Item>((item) => Item.fromJson(item))
           .toList();
+
+      Favorites favorites = Favorites();
+      listFavorites.value = await favorites.getFavorites();
+
+      print('STOP');
     } on DioError catch (e) {
       print(e.message);
     }
     isLoading(false);
   }
 
-  void nextPage() {
-    pg.value = pg.value + 1;
-    getAllMedications();
+  filterFavorites() {
+    List<Item> listDiferente = [];
+
+    for (int i = 0; i < listMedications.length; i++) {
+      var aux = listMedications[i];
+
+      for (int j = 0; j < listFavorites.length; j++) {
+        var aux2 = listFavorites[j];
+        if (aux == aux2) {
+          listDiferente.add(aux);
+        }
+      }
+    }
+    print(listDiferente.toString());
   }
 }

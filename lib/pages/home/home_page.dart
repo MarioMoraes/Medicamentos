@@ -1,11 +1,11 @@
-import 'package:app_bluestorm/model/medications.dart';
+import 'package:app_bluestorm/controller/medications_controller.dart';
 import 'package:app_bluestorm/pages/drawer/custom_drawer.dart';
-import 'package:app_bluestorm/widgets/card_detail_widget.dart';
+import 'package:app_bluestorm/widgets/list_detail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  final Medications medications = Get.put(Medications());
+  final MedicationsController medications = Get.put(MedicationsController());
 
   @override
   Widget build(BuildContext context) {
@@ -25,17 +25,20 @@ class HomePage extends StatelessWidget {
           if (medications.isLoading.value) {
             return Center(child: CircularProgressIndicator());
           } else
-            return ListView.separated(
-                itemCount: medications.listMedications.length,
-                itemBuilder: (_, index) {
-                  return CardDetailWidget(medications.listMedications[index]);
-                },
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    color: Colors.transparent,
-                    height: 5,
-                  );
-                });
+            return Padding(
+              padding: EdgeInsets.only(top: 4),
+              child: ListView.separated(
+                  itemCount: medications.listMedications.length,
+                  itemBuilder: (_, index) {
+                    return ListDetailWidget(medications.listMedications[index]);
+                  },
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      color: Colors.transparent,
+                      height: 5,
+                    );
+                  }),
+            );
         }));
   }
 }
