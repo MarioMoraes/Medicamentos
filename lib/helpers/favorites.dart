@@ -11,13 +11,13 @@ class Favorites {
 
   Future<List<String>> getFavorites() async {
     var prefs = await SharedPreferences.getInstance();
-    items = prefs.getStringList('favorites');
+    items = prefs.getStringList('favorites') ?? [];
     return items;
   }
 
   addFavorite(Item item) async {
     var prefs = await SharedPreferences.getInstance();
-    items = prefs.getStringList('favorites');
+    items = prefs.getStringList('favorites') ?? [];
 
     // Verifica se Item Ja foi Adicionado
     List result = items.where((x) => x.contains(item.medicationId)).toList();

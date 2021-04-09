@@ -1,5 +1,5 @@
 import 'package:app_bluestorm/controller/medications_controller.dart';
-import 'package:app_bluestorm/pages/drawer/custom_drawer.dart';
+import 'package:app_bluestorm/view/drawer/custom_drawer.dart';
 import 'package:app_bluestorm/widgets/list_detail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

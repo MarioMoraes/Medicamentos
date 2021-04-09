@@ -53,10 +53,4 @@ class MedicationsController extends GetxController {
     pg.value = pg.value + 1;
     getAllMedications();
   }
-
-  void toggleFavorite() {
-    copyList = listMedications.value[0];
-    print(copyList.toString());
-    print('STOP');
-  }
 }

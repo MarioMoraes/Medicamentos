@@ -9,11 +9,12 @@ class FavoritesController extends GetxController {
   String query = "";
 
   int limit = 20;
-  String token;
+  String _token;
 
-  var listMedications = [].obs;
+  List<Item> itemList = [];
+
   var listFavorites = [].obs;
-
+  var listDiferente = [].obs;
   var isLoading = true.obs;
   RxInt pg = 1.obs;
 
@@ -29,10 +30,10 @@ class FavoritesController extends GetxController {
   Future<void> getAllFavorites() async {
     try {
       isLoading(true);
-      token = Singleton.instance.tokenData;
+      _token = Singleton.instance.tokenData;
 
       dio.options.headers['content-Type'] = 'application/json';
-      dio.options.headers["Authorization"] = "Bearer $token";
+      dio.options.headers["Authorization"] = "Bearer $_token";
 
       dio.options.queryParameters = {'page': pg.value, 'limit': limit};
 
@@ -41,14 +42,16 @@ class FavoritesController extends GetxController {
 
       pg.value = response.data['page'];
 
-      listMedications.value = (response.data['items'])
+      itemList = (response.data['items'])
           .map<Item>((item) => Item.fromJson(item))
           .toList();
 
       Favorites favorites = Favorites();
       listFavorites.value = await favorites.getFavorites();
 
-      print('STOP');
+      filterFavorites();
+
+      update();
     } on DioError catch (e) {
       print(e.message);
     }
@@ -56,18 +59,22 @@ class FavoritesController extends GetxController {
   }
 
   filterFavorites() {
-    List<Item> listDiferente = [];
-
-    for (int i = 0; i < listMedications.length; i++) {
-      var aux = listMedications[i];
+    for (int i = 0; i < itemList.length; i++) {
+      var aux = itemList[i].medicationId;
 
       for (int j = 0; j < listFavorites.length; j++) {
         var aux2 = listFavorites[j];
+
         if (aux == aux2) {
-          listDiferente.add(aux);
+          listDiferente.add(itemList[i]);
         }
       }
     }
-    print(listDiferente.toString());
+  }
+
+  @override
+  void onClose() {
+    // chamado pouco antes do controlador ser excluído da memória
+    super.onClose();
   }
 }

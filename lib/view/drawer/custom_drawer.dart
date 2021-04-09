@@ -41,7 +41,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 setState(() {
                   currentIndex = 3;
                 });
-                Get.toNamed('/');
+                Get.offNamed('/');
               },
               child: Text(
                 'Home',
@@ -58,7 +58,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
             ),
             GestureDetector(
               onTap: () {
-                Get.toNamed('/favorite');
+                Get.offNamed('/favorite');
               },
               child: Text(
                 'Favoritos',
@@ -74,7 +74,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
               height: 45,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.offNamed('/login');
+              },
               child: Text(
                 'Logout',
                 style: TextStyle(

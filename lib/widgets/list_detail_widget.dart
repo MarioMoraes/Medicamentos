@@ -30,8 +30,7 @@ class ListDetailWidget extends StatelessWidget {
         width: 40,
       ),
       trailing: IconButton(
-        icon: Icon(item.favorite ? Icons.favorite : Icons.favorite_border,
-            color: Colors.red),
+        icon: Icon(Icons.navigate_next, color: Colors.black54),
         onPressed: () {},
       ),
     );

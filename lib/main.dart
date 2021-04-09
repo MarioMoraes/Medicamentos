@@ -1,6 +1,6 @@
-import 'package:app_bluestorm/pages/favorite/favorite_screen.dart';
-import 'package:app_bluestorm/pages/home/home_page.dart';
-import 'package:app_bluestorm/pages/login/login_screen.dart';
+import 'package:app_bluestorm/view/favorite/favorite_screen.dart';
+import 'package:app_bluestorm/view/home/home_page.dart';
+import 'package:app_bluestorm/view/login/login_screen.dart';
 import 'package:app_bluestorm/widgets/medication_detail_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
