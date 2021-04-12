@@ -14,7 +14,7 @@ class FavoritesController extends GetxController {
   List<Item> itemList = [];
 
   var listFavorites = [].obs;
-  var listDiferente = [].obs;
+  var listNew = [].obs;
   var isLoading = true.obs;
   RxInt pg = 1.obs;
 
@@ -66,7 +66,7 @@ class FavoritesController extends GetxController {
         var aux2 = listFavorites[j];
 
         if (aux == aux2) {
-          listDiferente.add(itemList[i]);
+          listNew.add(itemList[i]);
         }
       }
     }

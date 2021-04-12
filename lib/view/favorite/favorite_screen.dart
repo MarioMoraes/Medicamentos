@@ -20,9 +20,9 @@ class FavoriteScreen extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           } else
             return ListView.separated(
-                itemCount: favorites.listDiferente.length,
+                itemCount: favorites.listNew.length,
                 itemBuilder: (_, index) {
-                  return ListDetailWidget(favorites.listDiferente[index]);
+                  return ListDetailWidget(favorites.listNew[index]);
                 },
                 separatorBuilder: (context, index) {
                   return Divider(
